@@ -166,7 +166,61 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
+            test: /\.less$/,
+            include: [
+              path.resolve(__dirname, '../src')
+            ],
+            loader: ExtractTextPlugin.extract(
+              Object.assign(
+              {
+                fallback: {
+                  loader: require.resolve('style-loader'),
+                  options: {
+                    hmr: false,
+                  },
+                },
+                use: [
+                  {
+                    loader: require.resolve('css-loader'),
+                    options: {
+                      importLoaders: 1,
+                      minimize: true,
+                      sourceMap: shouldUseSourceMap
+                    },
+                  },
+                  {
+                    loader: require.resolve('less-loader')
+                  },
+                  {
+                    loader: require.resolve('postcss-loader'),
+                    options: {
+                      options: {
+                        ident: 'postcss',
+                        plugins: [
+                          require('postcss-flexbugs-fixes'),
+                          autoprefixer({
+                            browsers: [
+                              '>1%',
+                              'last 4 versions',
+                              'Firefox ESR',
+                              'not ie < 9', // React doesn't support IE8 anyway
+                            ],
+                            flexbox: 'no-2009',
+                          }),
+                        ]
+                      }
+                    }
+                  },
+                ]
+              }
+              )
+            )
+          },
+          {
             test: /\.css$/,
+            include: [
+              path.resolve(__dirname, '../src/assets/css')
+            ],
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {

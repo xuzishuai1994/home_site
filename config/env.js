@@ -86,7 +86,10 @@ function getClientEnvironment(publicUrl) {
       return env;
     }, {}),
   };
-
+  console.log(raw);
+  // for(var i = 0; i < 1000000000000; i++) {
+  //   var a = 1;
+  // }
   return { raw, stringified };
 }
 
