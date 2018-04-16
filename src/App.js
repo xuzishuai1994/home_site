@@ -1,10 +1,36 @@
 import React, { Component } from 'react';
 import curvejs from 'curvejs';
+import { handleDebounce, handleDebounceDecorator } from './util/lib';
 
 import s from './app.less';
 
 class App extends Component {
+  state = {
+  }
+
+  ajax() {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('200');
+      }, 3000);
+    })
+  }
+
+  handleFetch = () => {
+    this.ajax().then((res) => {
+      console.log(res);
+    });
+  }
+
+  @handleDebounceDecorator()
+  handleAjax() {
+    this.ajax().then((res) => {
+      console.log(res);
+    });
+  }
+
 	componentDidMount() {
+    console.log(this);
 		var Stage = curvejs.Stage,
 		    Curve = curvejs.Curve,
 		    canvas = document.getElementById('myCanvas'),
@@ -33,10 +59,14 @@ class App extends Component {
 
 		tick()
 	}
+
   render() {
     return (
       <div className={s.App}>
-       <canvas className={s.myCanvas} id="myCanvas"></canvas>
+        <button onClick={handleDebounce(this.handleFetch)}>decorator</button>
+        <button onClick={this.handleAjax}>decorator2</button>
+        <button onClick={this.handleFetch}>decorator3</button>
+        <canvas className={s.myCanvas} id="myCanvas"></canvas>
       </div>
     );
   }

@@ -1,0 +1,35 @@
+/**
+ *  函数防抖(普通版), tip: 处理频率高的点击问题
+ */
+
+export const handleDebounce = (func, delay = 300) => {
+  let timerId = 0;
+  return (...args) => {
+    timerId && clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      timerId = 0;
+      func.apply(this, args);
+    }, delay);
+  }
+}
+
+/**
+ *  函数防抖(装饰器版), tip: 处理频率高的点击问题
+ */
+
+export const handleDebounceDecorator = (delay = 300) => {
+  return (target, name, descriptor) => {
+    console.log(target, name, descriptor);
+    console.log(target.constructor.prototype);
+    const method = descriptor.value;
+    let timerId = 0;
+    descriptor.value = (...args) => {
+      timerId && clearTimeout(timerId);
+      timerId = setTimeout(() => {
+        timerId = 0;
+        return method.apply(target, args);
+      }, delay);
+    };
+    return descriptor;
+  }
+}
