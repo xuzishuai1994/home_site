@@ -190,7 +190,10 @@ module.exports = {
                     },
                   },
                   {
-                    loader: require.resolve('less-loader')
+                    loader: require.resolve('less-loader'),
+                    options: {
+                      javascriptEnabled: true,
+                    },
                   },
                   {
                     loader: require.resolve('postcss-loader'),
