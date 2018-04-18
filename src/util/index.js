@@ -1,5 +1,5 @@
 /**
- *  函数防抖(普通版), tip: 处理频率高的点击问题
+ *  函数防抖(普通版), tip: 处理频率高的点击问题, 适用于普通函数
  */
 
 export const handleDebounce = (func, delay = 300) => {
@@ -14,7 +14,7 @@ export const handleDebounce = (func, delay = 300) => {
 }
 
 /**
- *  函数防抖(装饰器版), tip: 处理频率高的点击问题
+ *  函数防抖(装饰器版), tip: 处理频率高的点击问题, 不能用在普通函数上，需用在属性上
  */
 
 export const handleDebounceDecorator = (delay = 300) => {
