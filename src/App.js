@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import curvejs from 'curvejs';
-import { handleDebounce, handleDebounceDecorator } from './util';
+import { handleDebounce, handleDebounceDecorator } from './util/js';
 
 import s from './app.less';
 
